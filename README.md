@@ -1,10 +1,24 @@
-Implemented the RAG method using OLLAMA LLM
+## Project Overview
 
-1).Used the FASTAPI to upload the Image file in getting_image_file.py file
-2).copied the path of the file, used the poppler-path to convert the image file into OCR, then used the tesseract library to convert the image file into string format
-3).used the RecursiveCharacterTextSPlitter from langchain to split the text 
-4).used the OnnxMiniEmbeddings class to utilize the huggingface Xenova/all-MiniLLM-L6-V2 model and used the sentence-transformers/all-MiniLM-L6-v2 token to call and load the model 
-in callable input function, adopted the embed_query and embed_documents to make use of single line text and multi-line texts to make use of in OCR format
-5). used the OnnxMiniEmbeddings class in RAG_Request.py file as embeddings as a method, then I have applied the Chroma as a database library to convert and store the numerical values as a vector DB format
-6).used the uvicorn to call the FastApi method to get the RAG request through FastAPI
-7).validated the RAG response using Requests Library
+Implemented the **RAG (Retrieval-Augmented Generation)** method using **OLLAMA LLM**.
+
+## Implementation Details
+
+1. Used **FastAPI** to upload the image file in `getting_image_file.py`.
+
+2. Copied the uploaded file path and used the **Poppler** path to convert the image-based PDF for OCR processing.  
+   Then used the **Tesseract** library to convert the image into string format.
+
+3. Used **RecursiveCharacterTextSplitter** from **LangChain** to split the extracted text into chunks.
+
+4. Used the **OnnxMiniEmbeddings** class to load the Hugging Face  
+   `Xenova/all-MiniLM-L6-v2` model.  
+   The `sentence-transformers/all-MiniLM-L6-v2` tokenizer was used to load the model inside a callable input function.  
+   Implemented both `embed_query` and `embed_documents` methods to handle single-line and multi-line OCR text.
+
+5. Used the **OnnxMiniEmbeddings** class in `RAG_Request.py` as the embedding method.  
+   Integrated **Chroma** as the vector database to store numerical embeddings in vector DB format.
+
+6. Used **Uvicorn** to run the FastAPI server and process RAG requests through API endpoints.
+
+7. Validated the RAG responses using the **Requests** library.
