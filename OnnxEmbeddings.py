@@ -28,12 +28,17 @@ class OnnxClass(Embeddings):
 
         return pooled
 
+    def normalize(self,embeddings):
+        norm=np.linalg.norm(embeddings,axis=1,keepdims=True)
+        return embeddings/np.clip(norm,1e-12,None)
+
     def embed_query(self,text):
         inputs=self.provider_input(text)
         ouputs=self.session.run(None,inputs)
 
         embedding_documents=self.pooling(ouputs[0],inputs['attention_mask'])
-        return embedding_documents[0].tolist()
+        normalized=self.normalize(embedding_documents)
+        return normalized[0].tolist()
 
     def embed_documents(self,texts):
         vectors=[]
@@ -41,7 +46,8 @@ class OnnxClass(Embeddings):
             inputs=self.provider_input(text)
             outputs=self.session.run(None,inputs)
             embedding_documents=self.pooling(outputs[0],inputs['attention_mask'])
-            vectors.append(embedding_documents[0].tolist())
+            normalized=self.normalize(embedding_documents)
+            vectors.append(normalized[0].tolist())
 
         return vectors
 
